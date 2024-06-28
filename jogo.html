@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecodesafio - Jogo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ecodesafio - Jogo</h1>
+        <div class="game-container">
+            <div id="paper" class="item" draggable="true" ondragstart="drag(event)">
+                <img src="images/paper.png" alt="Papel">
+                Papel
+            </div>
+            <div id="plastic" class="item" draggable="true" ondragstart="drag(event)">
+                <img src="images/plastic.png" alt="Plástico">
+                Plástico
+            </div>
+            <div id="organic" class="item" draggable="true" ondragstart="drag(event)">
+                <img src="images/organic.png" alt="Orgânico">
+                Orgânico
+            </div>
+            <div id="metal" class="item" draggable="true" ondragstart="drag(event)">
+                <img src="images/metal.png" alt="Metal">
+                Metal
+            </div>
+        </div>
+        <div class="bins">
+            <div id="bin-paper" class="bin" ondrop="drop(event)" ondragover="allowDrop(event)">Cesto de Papel</div>
+            <div id="bin-plastic" class="bin" ondrop="drop(event)" ondragover="allowDrop(event)">Cesto de Plástico</div>
+            <div id="bin-organic" class="bin" ondrop="drop(event)" ondragover="allowDrop(event)">Cesto Orgânico</div>
+            <div id="bin-metal" class="bin" ondrop="drop(event)" ondragover="allowDrop(event)">Cesto de Metal</div>
+        </div>
+        <button id="completeChallenge">Concluído</button>
+    </div>
+
+    <script>
+        let score = 0;
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const item = document.getElementById(data);
+            const bin = ev.target;
+            if ((data === 'paper' && bin.id === 'bin-paper') ||
+                (data === 'plastic' && bin.id === 'bin-plastic') ||
+                (data === 'organic' && bin.id === 'bin-organic') ||
+                (data === 'metal' && bin.id === 'bin-metal')) {
+                bin.appendChild(item);
+                score += 10;
+                alert("Cesto correto! Pontuação: " + score);
+            } else {
+                alert("Cesto errado! Pontuação: " + score);
+            }
+        }
+
+        document.getElementById('completeChallenge').addEventListener('click', function() {
+            localStorage.setItem('score', score);
+            window.location.href = 'score.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecodesafio - Score</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pontuação Final</h1>
+        <div id="score"></div>
+        <p>Parabéns por completar o Ecodesafio! Ao participar, você contribuiu para a conscientização ambiental e ajudou a promover práticas sustentáveis.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const score = localStorage.getItem('score');
+            document.getElementById('score').innerText = "Sua pontuação: " + score;
+        });
+    </script>
+</body>
+</html>
